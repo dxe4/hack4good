@@ -40,7 +40,6 @@ INSTALLED_APPS = (
 )
 
 
-
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -66,7 +65,9 @@ STATICFILES_DIRS = (
 )
 
 DATA_FILES = {
-    'data-per-capita': here('theapp/data/data-per-capita.csv')
+    'data-per-capita': here('theapp/data/data-per-capita.csv'),
+    'land-under-cereal-production': here(
+        'theapp/data/land-under-cereal-production.csv'),
 }
 
 STATIC_ROOT = 'staticfiles'

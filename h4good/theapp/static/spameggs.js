@@ -1,3 +1,8 @@
+// $£"$"£$"s"
+var fname = "data-per-capita";
+var year = "2010";
+
+
 function draw(jsonData){
 
     var path_dict = {};
@@ -48,11 +53,32 @@ function draw(jsonData){
     stage.add(mapLayer);
     stage.add(topLayer);
 }
-console.log("b");
-$(document).ready(function() {
-  $.get( "/get-data/data-per-capita/2010", function( data ) {
-  	console.log("b");
+
+function send_request(){
+    $.get( "/get-data/"+ fname +"/"+ year, function( data ) {
       draw(data);
     });
+}
+
+
+function registerListeners(){
+  $(".data-dropdown li").click(function() {
+      var type = $(this).data("type");
+      var val = $(this).data(type);
+      if(type === "year"){
+          year = val;
+      }  else if(type === "fname") {
+          fname = val;
+      } else{
+        return;
+      }
+      send_request();
+  });
+}
+
+
+$(document).ready(function() {
+  registerListeners();
+  send_request();
 
 });
