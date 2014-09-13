@@ -62,15 +62,17 @@ function send_request(){
 
 
 function registerListeners(){
+  // WHHAAAAAT
   $(".data-dropdown li").click(function() {
       var type = $(this).data("type");
       var val = $(this).data(type);
+
       if(type === "year"){
           year = val;
       }  else if(type === "fname") {
           fname = val;
       } else{
-        return;
+         return;
       }
       send_request();
   });
@@ -80,5 +82,4 @@ function registerListeners(){
 $(document).ready(function() {
   registerListeners();
   send_request();
-
 });
