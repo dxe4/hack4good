@@ -1,8 +1,8 @@
 import csv
+import struct
 
 from django.conf import settings
 import pycountry
-import pygal
 
 
 def convert_country_code(alpha3):
@@ -20,8 +20,11 @@ def get_columns(reader):
     return [i.lower().replace(" ", "_") for i in next(reader)]
 
 
-def _transorm(a, ab_diff, x_diff, x_min, value):
-    return a + ((ab_diff) / (x_diff)) * (value - x_diff)
+def _transorm(a, b, ab_diff, x_diff, x_min, value):
+    new_value = a + ((ab_diff) / (x_diff)) * (value - x_min)
+    new_value = abs(b - new_value) * 2.5
+    new_value = '#%02x%02x%02x' % (new_value, new_value, new_value)
+    return new_value
 
 
 def to_color_map(_dict, a=0, b=100):
@@ -33,7 +36,7 @@ def to_color_map(_dict, a=0, b=100):
     x_diff = x_max - x_min
 
     for k, v in _dict.items():
-        _dict[k] = _transorm(a, ab_diff, x_diff, x_min, v)
+        _dict[k] = _transorm(a, b, ab_diff, x_diff, x_min, v)
 
     return _dict
 
@@ -49,7 +52,8 @@ def read_file(fname=settings.CO2_FILE):
 
             try:
                 country_code = item['country_code']
-                item['country_code'] = convert_country_code(country_code)
+                item['country_code'] = \
+                    convert_country_code(country_code).upper()
             except KeyError:
                 print("not found {}".format(country_code))
 
@@ -58,15 +62,14 @@ def read_file(fname=settings.CO2_FILE):
     return items
 
 
-def make_csv(fname=settings.CO2_FILE, year='2010'):
+def get_data(fname=settings.CO2_FILE, year='2010'):
     result = read_file(fname=fname)
 
-    data = {i['country_code'].lower(): float(i[year])
+    data = {i['country_code']: float(i[year])
             for i in result if i.get(year)}
 
     data = to_color_map(data)
-    from pprint import pprint
-    pprint(data)
+    return data
     # worldmap_chart = pygal.Worldmap()
     # worldmap_chart.title = 'C02'
     # worldmap_chart.add('Year {}'.format(year), data)
