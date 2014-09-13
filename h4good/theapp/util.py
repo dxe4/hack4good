@@ -65,7 +65,7 @@ def read_file(fname):
 def get_data(fname, year):
     # settings.CO2_FILE
     fpath = settings.DATA_FILES[fname]
-
+    print(fpath)
     result = read_file(fname=fpath)
 
     data = {i['country_code']: float(i[year])

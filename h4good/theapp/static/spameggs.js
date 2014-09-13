@@ -4,7 +4,17 @@ var year = "2010";
 
 var bad_dict = {
   "data-per-capita": "CO2",
-  "land-under-cereal-production": "Land Under Cereal Production"
+  "land-under-cereal-production": "Land Under Cereal Production",
+  'poverty-headcount-ratio-at-rural-poverty-line': 'Poverty headcount ratio at rural poverty line',
+  'agricultural-land': 'Agricultural Land',
+  'cereal-yield': 'Cereal yield (kg per hectare)',
+  'agriculture-value-added': 'Agriculture, value added (% of GDP)',
+  'inflation-consumer-prices': 'Inflation, consumer prices (annual %)',
+  'inflation-gdp-deflator': 'Inflation, GDP deflator (annual %)',
+  'employees-agriculture-male': 'Employees, agriculture, male (% of male employment)',
+  'employees-agriculture-female': 'Employees, agriculture, female (% of female employment)',
+  'plant-species-threatened': 'Plant species (higher), threatened',
+
 }
 
 

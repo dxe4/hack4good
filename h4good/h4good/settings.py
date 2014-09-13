@@ -68,6 +68,25 @@ DATA_FILES = {
     'data-per-capita': here('theapp/data/data-per-capita.csv'),
     'land-under-cereal-production': here(
         'theapp/data/land-under-cereal-production.csv'),
+    'poverty-headcount-ratio-at-rural-poverty-line': here(
+        'theapp/data/poverty-headcount-ratio-at-rural-poverty-line.csv'),
+    'agricultural-land': here(
+        'theapp/data/agricultural-land.csv'),
+    'cereal-yield': here(
+        'theapp/data/cereal-yield.csv'),
+    'agriculture-value-added': here(
+        'theapp/data/agriculture-value-added.csv'),
+    'inflation-consumer-prices': here(
+        'theapp/data/inflation-consumer-prices.csv'),
+    'inflation-gdp-deflator': here(
+        'theapp/data/inflation-gdp-deflator.csv'),
+    'employees-agriculture-male': here(
+        'theapp/data/employees-agriculture-male.csv'),
+    'employees-agriculture-female': here(
+        'theapp/data/employees-agriculture-female.csv'),
+    'plant-species-threatened': here(
+        'theapp/data/plant-species-threatened.csv'),
+
 }
 
 STATIC_ROOT = 'staticfiles'
