@@ -54,27 +54,35 @@ function draw(jsonData){
     stage.add(topLayer);
 }
 
-function send_request(){
+function send_request(cb){
     $.get( "/get-data/"+ fname +"/"+ year, function( data ) {
       draw(data);
+      cb();
     });
 }
 
 
 function registerListeners(){
-  // WHHAAAAAT
+  // WHHAAAAAT £"!$£"$£"$"£
   $(".data-dropdown li").click(function() {
       var type = $(this).data("type");
       var val = $(this).data(type);
 
       if(type === "year"){
           year = val;
+          send_request(function(){
+             $("#year").text(val);
+          });
+         
       }  else if(type === "fname") {
           fname = val;
+          send_request(function(){
+             $("#title").text(val);
+          });
+         
       } else{
          return;
       }
-      send_request();
   });
 }
 
