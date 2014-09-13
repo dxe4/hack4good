@@ -65,6 +65,7 @@ STATICFILES_DIRS = (
     here('theapp/static'),
 )
 
+CO2_FILE = here('theapp/data/data.csv')
 
 STATIC_ROOT = 'staticfiles'
 

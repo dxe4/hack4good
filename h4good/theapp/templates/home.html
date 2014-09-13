@@ -23,25 +23,30 @@
         </script> -->
         <style>
 	        svg {
-	        background: #eee;
+	           background: #eee;
 	        }
 	        .sphere {
-	        fill: #fff;
+	           fill: #fff;
 	        }
 	        .land {
-	        fill: #000;
+	           fill: #000;
 	        }
 	        .boundary {
-	        fill: none;
-	        stroke: #fff;
-	        stroke-linejoin: round;
-	        stroke-linecap: round;
-	        vector-effect: non-scaling-stroke;
+    	        fill: none;
+    	        stroke: #fff;
+    	        stroke-linejoin: round;
+    	        stroke-linecap: round;
+    	        vector-effect: non-scaling-stroke;
 	        }
 	        .overlay {
-	        fill: none;
-	        pointer-events: all;
+    	        fill: none;
+    	        pointer-events: all;
 	        }
+            .subunit.SCT { fill: #ddc; }
+            .subunit.WLS { fill: #cdd; }
+            .subunit.NIR { fill: #cdc; }
+            .subunit.ENG { fill: #dcd; }
+            .subunit.IRL { display: none; }
         </style>
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script src="http://d3js.org/topojson.v1.min.js"></script>
@@ -97,6 +102,14 @@
                 .attr("d", path);
             }
             d3.select(self.frameElement).style("height", height + "px");
-            </script>
+
+
+            
+            svg.selectAll(".subunit")
+                .data(topojson.feature(uk, uk.objects.subunits).features)
+              .enter().append("path")
+                .attr("class", function(d) { return "subunit " + d.id; })
+                .attr("d", path);
+                        </script>
         </body>
     </html>
