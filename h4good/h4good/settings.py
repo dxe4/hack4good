@@ -36,8 +36,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'h4good.theapp'
+    'theapp'
 )
+
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,6 +60,13 @@ def here(*args):
 TEMPLATE_DIRS = (
     here('theapp/templates'),
 )
+
+STATICFILES_DIRS = (
+    here('theapp/static'),
+)
+
+
+STATIC_ROOT = 'staticfiles'
 
 ROOT_URLCONF = 'h4good.urls'
 

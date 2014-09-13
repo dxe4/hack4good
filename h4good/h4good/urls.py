@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include
+from theapp import urls
 # url
 
 urlpatterns = patterns(
     '',
-    (r'', include('h4good.theapp.urls', namespace='theapp', app_name='theapp')),
+    (r'', include(urls, namespace='theapp', app_name='theapp')),
 )
