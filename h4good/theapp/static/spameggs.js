@@ -31,9 +31,13 @@ function draw(jsonData){
     */
     for(var key in window.world_map.shapes) {
 
+        var country_color = jsonData[key];
+        if(!country_color){
+          country_color = "#993399";
+        }
         var path = new Kinetic.Path({
             data: worldMap.shapes[key],
-              fill: jsonData[key],
+              fill: country_color,
               stroke: '#555',
               strokeWidth: 1
             }
@@ -78,19 +82,15 @@ function registerListeners(){
 
       if(type === "year"){
           year = val;
-          send_request(function(){
-             $("#year").text(val);
-          });
-         
       }  else if(type === "fname") {
-          fname = val;
-          send_request(function(){
-             $("#title").text(bad_dict[val]);
-          });
-         
-      } else{
-         return;
+          fname = val;         
       }
+  });
+  $("#search").click(function() {
+      send_request(function(){
+         $("#title").text(bad_dict[fname]);
+         $("#year").text(year);
+      });    
   });
 }
 
