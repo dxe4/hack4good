@@ -41,7 +41,7 @@ def to_color_map(_dict, a=0, b=100):
     return _dict
 
 
-def read_file(fname=settings.CO2_FILE):
+def read_file(fname):
     items = []
     with open(fname, 'rb') as csvfile:
         reader = csv.reader(csvfile, delimiter=',', quotechar='"')
@@ -62,8 +62,11 @@ def read_file(fname=settings.CO2_FILE):
     return items
 
 
-def get_data(fname=settings.CO2_FILE, year='2010'):
-    result = read_file(fname=fname)
+def get_data(fname, year):
+    # settings.CO2_FILE
+    fpath = settings.DATA_FILES[fname]
+
+    result = read_file(fname=fpath)
 
     data = {i['country_code']: float(i[year])
             for i in result if i.get(year)}

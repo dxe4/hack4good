@@ -6,5 +6,6 @@ from theapp.views import home, get_data_view
 urlpatterns = patterns(
     '',
     url(r'^home$', home, {}, name='home'),
-    url(r'^get_data$', get_data_view, {}, name='get_data'),
+    url(r'^get-data/(?P<fname>[\w-]*)/(?P<year>[0-9]*)$',
+        get_data_view, {}, name='get_data'),
 )

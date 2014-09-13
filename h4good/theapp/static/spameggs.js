@@ -19,12 +19,11 @@ function draw(jsonData){
     * loop through country data stroed in the worldMap
     * variable defined in the worldMap.js asset
     */
-    console.log(jsonData);
     for(var key in window.world_map.shapes) {
 
         var path = new Kinetic.Path({
             data: worldMap.shapes[key],
-              fill: jsonData[key],//'#eee',
+              fill: jsonData[key],
               stroke: '#555',
               strokeWidth: 1
             }
@@ -33,7 +32,6 @@ function draw(jsonData){
         path.country_key = key;
 
         path.on('mouseover', function() {
-          console.log(this.country_key);
           this.setFill('#111');
           this.moveTo(topLayer);
           topLayer.drawScene();
@@ -52,10 +50,7 @@ function draw(jsonData){
 }
 console.log("b");
 $(document).ready(function() {
-
-	console.log("a");
-
-  $.get( "/get_data", function( data ) {
+  $.get( "/get-data/data-per-capita/2010", function( data ) {
   	console.log("b");
       draw(data);
     });
