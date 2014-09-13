@@ -2,6 +2,11 @@
 var fname = "data-per-capita";
 var year = "2010";
 
+var bad_dict = {
+  "data-per-capita": "CO2",
+  "land-under-cereal-production": "Land Under Cereal Production"
+}
+
 
 function draw(jsonData){
 
@@ -57,7 +62,10 @@ function draw(jsonData){
 function send_request(cb){
     $.get( "/get-data/"+ fname +"/"+ year, function( data ) {
       draw(data);
-      cb();
+      if(cb){
+        cb();
+      }
+      
     });
 }
 
@@ -77,7 +85,7 @@ function registerListeners(){
       }  else if(type === "fname") {
           fname = val;
           send_request(function(){
-             $("#title").text(val);
+             $("#title").text(bad_dict[val]);
           });
          
       } else{
