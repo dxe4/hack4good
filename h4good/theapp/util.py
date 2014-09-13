@@ -20,6 +20,24 @@ def get_columns(reader):
     return [i.lower().replace(" ", "_") for i in next(reader)]
 
 
+def _transorm(a, ab_diff, x_diff, x_min, value):
+    return a + ((ab_diff) / (x_diff)) * (value - x_diff)
+
+
+def to_color_map(_dict, a=0, b=100):
+    values = _dict.values()
+
+    ab_diff = b - a
+    x_min = min(values)
+    x_max = max(values)
+    x_diff = x_max - x_min
+
+    for k, v in _dict.items():
+        _dict[k] = _transorm(a, ab_diff, x_diff, x_min, v)
+
+    return _dict
+
+
 def read_file(fname=settings.CO2_FILE):
     items = []
     with open(fname, 'rb') as csvfile:
@@ -42,11 +60,14 @@ def read_file(fname=settings.CO2_FILE):
 
 def make_csv(fname=settings.CO2_FILE, year='2010'):
     result = read_file(fname=fname)
-    worldmap_chart = pygal.Worldmap()
-    worldmap_chart.title = 'C02'
 
     data = {i['country_code'].lower(): float(i[year])
             for i in result if i.get(year)}
 
-    worldmap_chart.add('Year {}'.format(year), data)
-    worldmap_chart.render_to_file("{}.svg".format(year))
+    data = to_color_map(data)
+    from pprint import pprint
+    pprint(data)
+    # worldmap_chart = pygal.Worldmap()
+    # worldmap_chart.title = 'C02'
+    # worldmap_chart.add('Year {}'.format(year), data)
+    # worldmap_chart.render_to_file("{}.svg".format(year))
