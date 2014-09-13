@@ -2,6 +2,7 @@ import csv
 
 from django.conf import settings
 import pycountry
+import pygal
 
 
 def convert_country_code(alpha3):
@@ -37,3 +38,15 @@ def read_file(fname=settings.CO2_FILE):
             items.append(item)
 
     return items
+
+
+def make_csv(fname=settings.CO2_FILE, year='2010'):
+    result = read_file(fname=fname)
+    worldmap_chart = pygal.Worldmap()
+    worldmap_chart.title = 'C02'
+
+    data = {i['country_code'].lower(): float(i[year])
+            for i in result if i.get(year)}
+
+    worldmap_chart.add('Year {}'.format(year), data)
+    worldmap_chart.render_to_file("{}.svg".format(year))
