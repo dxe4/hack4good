@@ -24,19 +24,35 @@ function send_request(cb){
         if(cb){
           cb();
         }
-
+        if(!selected.length) return $('svg, #thechart span').remove();
+        if(selected.length == 1) return send_request_by_contry(selected[0].country, function(d) {
+            selected = [d];
+        });
+        var oldS = selected;
+        selected = [];
+        var requests = [];
+        oldS.forEach(function(i, index) {
+            requests.push($.get( "/get-data/" + fname + "/"+i.country, function( data ) {
+              data.country = i.country;
+              selected.push(data);
+            }));
+        })
+        
+        $.when.apply($, requests).then(function() {
+            console.log(arguments);
+            compare.apply(window, selected);
+        })
+/*
+Exception: return not in function
+@Scratchpad/1:1
+*/
     });
 }
 
 
-
-if(!window.datas) window.datas = [];
-
 function draw_by_country(dataset){
   $("svg").remove();
   $('#thechart span').remove();
-
-  window.datas.push(dataset);
 
  var chart = d3.select("#thechart")
      .style('width', w * dataset.length - 1 + 'px')
@@ -51,7 +67,12 @@ function draw_by_country(dataset){
      .attr("x", function(d, i) { return x(i) - 0.5; })
      .attr("y", function(d) { return d * 3; })
      .attr("width", w)
-     .attr("height", function(d) { return h - d; })
+     .attr('height', '0')
+     .offset()
+   
+     chart.selectAll('rect')
+     .data(dataset)
+     .enter()..attr("height", function(d) { return h - d; })
      .style("fill", function(d) { return 'rgb(60, 150, ' + color(d) + ')'; });
 
     
@@ -168,7 +189,7 @@ function draw(jsonData){
     var stage = new Kinetic.Stage({
         container: 'container',
         width: 1200,
-        height: 1200
+        height: 500
     });
     var mapLayer = new Kinetic.Layer({
         y: 20,
