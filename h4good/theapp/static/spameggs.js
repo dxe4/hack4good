@@ -25,6 +25,7 @@ function send_request(cb){
         if(cb){
           cb();
         }
+
         if(!selected.length) return $('svg, #thechart span').remove();
         if(selected.length == 1) return send_request_by_contry(selected[0].country, function(d) {
             selected = [d];
@@ -289,4 +290,4 @@ $(document).ready(function() {
     $('#container').hover(function() {
         $('#thechart').removeClass('active');
     })
-});
+})
