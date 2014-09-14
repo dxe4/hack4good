@@ -179,7 +179,6 @@ function registerListeners(){
          $("#title").text(bad_dict[fname]);
          $("#year").text(year);
       });
-      $(this).prop('disabled', true);
   });
 }
 
