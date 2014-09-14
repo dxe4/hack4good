@@ -223,11 +223,7 @@ function draw(jsonData){
 
     var stage = new Kinetic.Stage({
         container: 'container',
-<<<<<<< Updated upstream
         width: 1000,
-=======
-        width: 1200,
->>>>>>> Stashed changes
         height: 500
     });
     var mapLayer = new Kinetic.Layer({
