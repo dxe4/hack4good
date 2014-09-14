@@ -14,7 +14,6 @@ var bad_dict = {
   'employees-agriculture-male': 'Employees, agriculture, male (% of male employment)',
   'employees-agriculture-female': 'Employees, agriculture, female (% of female employment)',
   'plant-species-threatened': 'Plant species (higher), threatened',
-
 }
 
 
@@ -30,9 +29,9 @@ function send_request(cb){
 
 
 function draw_by_country(dataset){
-  console.log(dataset);
+  $("svg").remove();
    var w = 20,
-       h = 80;
+       h = 100;
   
   var x = d3.scale.linear()
       .domain([0, 1])
@@ -42,7 +41,7 @@ function draw_by_country(dataset){
      .domain([0, 100])
      .rangeRound([0, h]);
 
- var chart = d3.select("body")
+ var chart = d3.select("#thechart")
      .append("svg:svg")
      .attr("class", "chart")
      .attr("width", w * dataset.length - 1)
@@ -52,9 +51,9 @@ function draw_by_country(dataset){
      .data(dataset)
      .enter().append("svg:rect")
      .attr("x", function(d, i) { return x(i) - .5; })
-     .attr("y", function(d) { return h - d; })
+     .attr("y", function(d) { return d * 3; })
      .attr("width", w)
-     .attr("height", function(d) { return d * 15; });
+     .attr("height", function(d) { return h - d * 3; });
 
 
 
