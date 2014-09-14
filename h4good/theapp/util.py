@@ -28,6 +28,18 @@ def _transorm(a, b, ab_diff, x_diff, x_min, value):
     return new_value
 
 
+def to_color_map_list(_list, a=0, b=50):
+    ab_diff = b - a
+    x_min = min(_list)
+    x_max = max(_list)
+    x_diff = x_max - x_min
+    res = []
+    for i in _list:
+        val = a + ((ab_diff) / (x_diff)) * (i - x_min)
+        res.append(val)
+    return res
+
+
 def to_color_map(_dict, a=0, b=100):
     values = _dict.values()
     if not values:
@@ -92,7 +104,9 @@ def get_data_by_country(fname, country):
     data = read_file(fname=fpath)
     data = {i['country_code']: _filter_years(i)
             for i in data if i['country_code'] == country}
+
     data = data[country]
     data = OrderedDict(data).values()
     data = [float(i) for i in data]
+    data = to_color_map_list(data)
     return data
