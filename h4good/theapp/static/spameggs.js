@@ -204,16 +204,18 @@ function draw(jsonData){
     for(var key in window.world_map.shapes) {
 
         var country_color = jsonData[key];
-        console.log(country_color);
+
+        var nodata = '#000'
+        
         if(!country_color){
-          country_color = "#993399";
+          country_color = nodata
         } else {
-           quadruplet = [parseInt(country_color.slice(1, 3), 16), parseInt(country_color.slice(3, 5), 16), parseInt(country_color.slice(5), 16), 1];
-           country_code = country_code == '#993399' ? '#993399' : 'rgb(' + (quadruplet[0] - 100) + ',' + (quadruplet[1] - 70) + ', ' + quadruplet[2] + ')';
+            quadruplet = [parseInt(country_color.slice(1, 3), 16), parseInt(country_color.slice(3, 5), 16), parseInt(country_color.slice(5), 16), 1];
+           country_color = 'rgb(' + (quadruplet[0] - 100) + ',' + (quadruplet[1] - 70) + ', ' + quadruplet[2] + ')';
         }
         var path = new Kinetic.Path({
             data: worldMap.shapes[key],
-              fill: country_code,
+              fill: country_color,
               stroke: '#555',
               strokeWidth: 1
             }
