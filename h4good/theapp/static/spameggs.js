@@ -25,27 +25,6 @@ function send_request(cb){
         if(cb){
           cb();
         }
-<<<<<<< Updated upstream
-        
-//         if(selected.length == 1) return send_request_by_contry(selected[0].country, function(d) {
-//             selected = [d];
-//         });
-//         var oldS = selected;
-//         selected = [];
-//         var requests = [];
-//         oldS.forEach(function(i, index) {
-//             requests.push($.get( "/get-data/" + fname + "/"+i.country, function( data ) {
-//               data.country = i.country;
-//               selected.push(data);
-//             }));
-//         })
-        
-//         $.when.apply($, requests).then(function() {
-//             console.log(arguments);
-//             compare.apply(window, selected);
-//         })
-//        $('#search').prop('disabled', false);
-=======
         if(!selected.length) return $('svg, #thechart span').remove();
         if(selected.length == 1) return send_request_by_contry(selected[0].country, function(d) {
             selected = [d];
@@ -68,7 +47,6 @@ function send_request(cb){
 Exception: return not in function
 @Scratchpad/1:1
 */
->>>>>>> Stashed changes
     });
 }
 
@@ -91,13 +69,6 @@ function draw_by_country(dataset){
      .attr('y', '100')
      .attr("width", w)
      .attr('height', '0')
-<<<<<<< Updated upstream
-     .style('fill', '#fff')
-     .transition()
-     .duration(2000)
-     .attr("y", function(d) { return d * 3; })
-=======
->>>>>>> Stashed changes
      .attr("height", function(d) { return h - d; })
      .style("fill", function(d) { return 'rgb(60, 150, ' + color(d) + ')'; });
 
