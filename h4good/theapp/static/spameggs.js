@@ -25,7 +25,6 @@ function send_request(cb){
         if(cb){
           cb();
         }
-<<<<<<< Updated upstream
         
 //         if(selected.length == 1) return send_request_by_contry(selected[0].country, function(d) {
 //             selected = [d];
@@ -45,30 +44,6 @@ function send_request(cb){
 //             compare.apply(window, selected);
 //         })
 //        $('#search').prop('disabled', false);
-=======
-        if(!selected.length) return $('svg, #thechart span').remove();
-        if(selected.length == 1) return send_request_by_contry(selected[0].country, function(d) {
-            selected = [d];
-        });
-        var oldS = selected;
-        selected = [];
-        var requests = [];
-        oldS.forEach(function(i, index) {
-            requests.push($.get( "/get-data/" + fname + "/"+i.country, function( data ) {
-              data.country = i.country;
-              selected.push(data);
-            }));
-        })
-        
-        $.when.apply($, requests).then(function() {
-            console.log(arguments);
-            compare.apply(window, selected);
-        })
-/*
-Exception: return not in function
-@Scratchpad/1:1
-*/
->>>>>>> Stashed changes
     });
 }
 
@@ -91,13 +66,10 @@ function draw_by_country(dataset){
      .attr('y', '100')
      .attr("width", w)
      .attr('height', '0')
-<<<<<<< Updated upstream
      .style('fill', '#fff')
      .transition()
      .duration(2000)
      .attr("y", function(d) { return d * 3; })
-=======
->>>>>>> Stashed changes
      .attr("height", function(d) { return h - d; })
      .style("fill", function(d) { return 'rgb(60, 150, ' + color(d) + ')'; });
 
@@ -111,7 +83,7 @@ function draw_by_country(dataset){
        .style('width', '10px')
        .style('height', '10px')
        .style('left', '70px')
-       .style('top', function(d, i) { return (i+1) * -16 - 10 + 'px' })
+       .style('top', function(d, i) { return (i+1) * 16 - 10 + 'px' })
        .style('border-radius', '50%')
        .style('background', function(d, i) { return color(50) })
        .style('text-indent', '20px')
@@ -169,7 +141,7 @@ function compare() {
        .style('width', '10px')
        .style('height', '10px')
        .style('left', function(d, i) { return Math.round( (i+1) / 2) * 70 + 'px' })
-       .style('top', function(d, i) { if(i >= 2) i -= 2; return (i+1) * -16 - 10 + 'px' })
+       .style('top', function(d, i) { if(i >= 2) i -= 2; return (i+1) * 16 - 15 + 'px' })
        .style('border-radius', '50%')
        .style('background', function(d, i) { return cg(i) })
        .style('text-indent', '20px')
@@ -223,11 +195,7 @@ function draw(jsonData){
 
     var stage = new Kinetic.Stage({
         container: 'container',
-<<<<<<< Updated upstream
         width: 1000,
-=======
-        width: 1200,
->>>>>>> Stashed changes
         height: 500
     });
     var mapLayer = new Kinetic.Layer({
