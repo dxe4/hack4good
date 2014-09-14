@@ -8,7 +8,7 @@ from theapp.views import (
 urlpatterns = patterns(
     '',
     url(r'^home$', home, {}, name='home'),
-    url(r'^get-data/(?P<country>[a-zA-Z]{2})/(?P<year>[0-9]*)$',
+    url(r'^get-data/(?P<fname>[\w-]*)/(?P<country>[a-zA-Z]{2})$',
         get_date_by_country_view, {},
         name='get_date_by_country_view'),
     url(r'^get-data/(?P<fname>[\w-]*)/(?P<year>[0-9]*)$',

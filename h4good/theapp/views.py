@@ -16,7 +16,7 @@ def get_data_view(request, fname, year):
     return HttpResponse(data, content_type="application/json")
 
 
-def get_date_by_country_view(requset, country, year):
-    data = get_data_by_country(country, year)
+def get_date_by_country_view(requset, fname, country):
+    data = get_data_by_country(fname, country)
     data = json.dumps(data)
     return HttpResponse(data, content_type="application/json")

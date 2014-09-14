@@ -2,24 +2,33 @@
 <html>
     <head>
         {% load staticfiles %}
+        <meta charset="utf-8">
         <style>
-                    body {
-                        margin: 0px;
-                        padding: 0px;
-                    }
-                    #tango {
-                        position: absolute;
-                        top: 10px;
-                        left: 10px;
-                        padding: 10px;
-                    }
-                    #container {
-                        display: inline-block;
-                        overflow: hidden;
-                        height: 1200px;
-                        width: 1200px;
-                        background-position: 1px 1px;
-                    }
+            body {
+                margin: 0px;
+                padding: 0px;
+            }
+            #tango {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                padding: 10px;
+            }
+            #container {
+                display: inline-block;
+                overflow: hidden;
+                height: 1200px;
+                width: 1200px;
+                background-position: 1px 1px;
+            }
+             .chart div {
+               font: 10px sans-serif;
+               background-color: steelblue;
+               text-align: right;
+               padding: 3px;
+               margin: 1px;
+               color: white;
+             }
         </style>
         <script src="{% static 'jquery-2.1.0.min.js' %}"></script>
         <script src="{% static 'world_map.js' %}"></script>
@@ -31,11 +40,14 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
     </head>
     <body>
 
     <h4 id="title">CO2</h2>
     <h4 id="year">2010</h2>
+
+    <div id='thechart'></div>
         <!-- old school.... -->
         <div>
             <div class="btn-group data-dropdown">

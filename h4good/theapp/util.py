@@ -1,4 +1,5 @@
 import csv
+from collections import OrderedDict
 import struct
 
 from django.conf import settings
@@ -80,11 +81,18 @@ def get_data(fname, year):
     # worldmap_chart.render_to_file("{}.svg".format(year))
 
 
-def get_data_by_country(country, year):
-    result = {}
-    for k, v in settings.DATA_FILES.items():
-        data = read_file(fname=v)
-        data = {i['country_code']: float(i[year])
-                for i in data if i.get(year) and i['country_code'] == country}
-        result[k] = data
-    return result
+def _filter_years(_dict):
+    _dict.pop("indicator_code")
+    _dict.pop("country_name")
+    return {k: v for k, v in _dict.items() if k.isdigit() and v}
+
+
+def get_data_by_country(fname, country):
+    fpath = settings.DATA_FILES[fname]
+    data = read_file(fname=fpath)
+    data = {i['country_code']: _filter_years(i)
+            for i in data if i['country_code'] == country}
+    data = data[country]
+    data = OrderedDict(data).values()
+    data = [float(i) for i in data]
+    return data

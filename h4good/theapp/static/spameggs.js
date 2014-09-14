@@ -28,14 +28,45 @@ function send_request(cb){
     });
 }
 
+
+function draw_by_country(dataset){
+  console.log(dataset);
+   var w = 20,
+       h = 80;
+  
+  var x = d3.scale.linear()
+      .domain([0, 1])
+      .range([0, w]);
+  
+  var y = d3.scale.linear()
+     .domain([0, 100])
+     .rangeRound([0, h]);
+
+ var chart = d3.select("body")
+     .append("svg:svg")
+     .attr("class", "chart")
+     .attr("width", w * dataset.length - 1)
+     .attr("height", h);
+
+     chart.selectAll("rect")
+     .data(dataset)
+     .enter().append("svg:rect")
+     .attr("x", function(d, i) { return x(i) - .5; })
+     .attr("y", function(d) { return h - d; })
+     .attr("width", w)
+     .attr("height", function(d) { return d * 15; });
+
+
+
+}
+
 function send_request_by_contry(country, cb) {
-    $.get( "/get-data/"+ country +"/"+ year, function( data ) {
+    $.get( "/get-data/" + fname + "/"+country, function( data ) {
         // draw(data);
-        console.log(data);
+        draw_by_country(data);
         if(cb){
-          cb();
+          cb(data);
         }
-      
     });
 }
 
