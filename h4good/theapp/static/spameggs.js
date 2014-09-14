@@ -235,6 +235,7 @@ function draw(jsonData){
 
         path.on('click', function(e) {
             if(e.shiftKey) {
+                if(selected.length >= 4) return;
                 send_request_by_contry(this.country_key, function(d) {
                     selected.push(d);
                 })

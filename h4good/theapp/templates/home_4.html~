@@ -128,8 +128,6 @@
                 </ul>
             </div>
             <button id="search">Search</button>
-
-	    <p>You can compare up to 4 countries by holding Shift while selecting them</p>
         </div>
         <!-- end of oldschool... -->
         <div id="container"></div>
