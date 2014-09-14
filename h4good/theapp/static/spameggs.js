@@ -24,28 +24,25 @@ function send_request(cb){
         if(cb){
           cb();
         }
-        if(!selected.length) return $('svg, #thechart span').remove();
-        if(selected.length == 1) return send_request_by_contry(selected[0].country, function(d) {
-            selected = [d];
-        });
-        var oldS = selected;
-        selected = [];
-        var requests = [];
-        oldS.forEach(function(i, index) {
-            requests.push($.get( "/get-data/" + fname + "/"+i.country, function( data ) {
-              data.country = i.country;
-              selected.push(data);
-            }));
-        })
+        $('svg, #thechart span').remove();
+//         if(selected.length == 1) return send_request_by_contry(selected[0].country, function(d) {
+//             selected = [d];
+//         });
+//         var oldS = selected;
+//         selected = [];
+//         var requests = [];
+//         oldS.forEach(function(i, index) {
+//             requests.push($.get( "/get-data/" + fname + "/"+i.country, function( data ) {
+//               data.country = i.country;
+//               selected.push(data);
+//             }));
+//         })
         
-        $.when.apply($, requests).then(function() {
-            console.log(arguments);
-            compare.apply(window, selected);
-        })
-/*
-Exception: return not in function
-@Scratchpad/1:1
-*/
+//         $.when.apply($, requests).then(function() {
+//             console.log(arguments);
+//             compare.apply(window, selected);
+//         })
+//        $('#search').prop('disabled', false);
     });
 }
 
@@ -65,14 +62,14 @@ function draw_by_country(dataset){
      .data(dataset)
      .enter().append("svg:rect")
      .attr("x", function(d, i) { return x(i) - 0.5; })
-     .attr("y", function(d) { return d * 3; })
+     .attr('y', '100')
      .attr("width", w)
      .attr('height', '0')
-     .offset()
-   
-     chart.selectAll('rect')
-     .data(dataset)
-     .enter()..attr("height", function(d) { return h - d; })
+     .style('fill', '#fff')
+     .transition()
+     .duration(2000)
+     .attr("y", function(d) { return d * 3; })
+     .attr("height", function(d) { return h - d; })
      .style("fill", function(d) { return 'rgb(60, 150, ' + color(d) + ')'; });
 
     
@@ -122,8 +119,13 @@ function compare() {
      .data(dataset)
      .enter().append("svg:rect")
      .attr("x", function(d, i) { return x(i) - 0.5; })
-     .attr("y", function(d) { return d * 3; })
      .attr("width", w)
+     .attr('y', '100')
+     .attr('height', '0')
+     .attr('fill', 'white')
+     .transition()
+     .duration(2000)
+     .attr("y", function(d) { return d * 3; })
      .attr("height", function(d) { return h - d;})
      .style("fill", function(d, i) { return cg(i); });
     
@@ -177,6 +179,7 @@ function registerListeners(){
          $("#title").text(bad_dict[fname]);
          $("#year").text(year);
       });
+      $(this).prop('disabled', true);
   });
 }
 
@@ -261,6 +264,7 @@ function draw(jsonData){
 $(document).ready(function() {
   registerListeners();
   send_request(); 
+    $('#search').prop('disabled', false);
     
    window.w = 20;
    window.h = 100;
@@ -280,8 +284,3 @@ $(document).ready(function() {
   window.colorGroup = d3.scale.ordinal()
      .range(['rgb(60, 150, 150)', '#0FD495', '#2EFC79', '#2EFCED']);
 });
-
-/*
-Exception: missing ) after argument list
-@Scratchpad/1:211
-*/
