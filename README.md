@@ -1,7 +1,9 @@
 hack4good
 =========
 
-you should hack for good too
+you should hack for good too,
+
+Many thanks to [Mahdi Dibaiee](https://github.com/mdibaiee "Mahdi Dibaiee") for helping with d3.js
 
 ![abc](https://raw.githubusercontent.com/papaloizouc/hack4good/master/doc/abc.png)
 
