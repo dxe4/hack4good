@@ -20,11 +20,12 @@ var bad_dict = {
 
 function send_request(cb){
     $.get( "/get-data/"+ fname +"/"+ year, function( data ) {
+        $('svg, #thechart span').remove();
         draw(data);
         if(cb){
           cb();
         }
-        $('svg, #thechart span').remove();
+        
 //         if(selected.length == 1) return send_request_by_contry(selected[0].country, function(d) {
 //             selected = [d];
 //         });
@@ -52,7 +53,7 @@ function draw_by_country(dataset){
   $('#thechart span').remove();
 
  var chart = d3.select("#thechart")
-     .style('width', w * dataset.length - 1 + 'px')
+     //.style('width', w * dataset.length - 1 + 'px')
      .append("svg:svg")
      .attr("class", "chart")
      .attr("width", w * dataset.length - 1)
@@ -89,6 +90,8 @@ function draw_by_country(dataset){
        .text(function(d) {
            return d
        });
+    
+    $('#thechart').addClass('active');
 }
 
 function compare() {
@@ -109,7 +112,7 @@ function compare() {
  var cg = colorGroup.copy().range( colorGroup.range().slice(0, args.length) );
  var chart = d3.select("#thechart")
      .style('position', 'relative')
-     .style('width', w * dataset.length - 1 + 'px')
+     //.style('width', w * dataset.length - 1 + 'px')
      .append("svg:svg")
      .attr("class", "chart")
      .attr("width", w * dataset.length - 1)
@@ -145,6 +148,8 @@ function compare() {
        .text(function(d) {
            return d.country
        });
+    
+   $('#thechart').addClass('active');
  
 }
 
@@ -179,7 +184,6 @@ function registerListeners(){
          $("#title").text(bad_dict[fname]);
          $("#year").text(year);
       });
-      $(this).prop('disabled', true);
   });
 }
 
@@ -191,7 +195,7 @@ function draw(jsonData){
 
     var stage = new Kinetic.Stage({
         container: 'container',
-        width: 1200,
+        width: 1000,
         height: 500
     });
     var mapLayer = new Kinetic.Layer({
@@ -264,7 +268,6 @@ function draw(jsonData){
 $(document).ready(function() {
   registerListeners();
   send_request(); 
-    $('#search').prop('disabled', false);
     
    window.w = 20;
    window.h = 100;
@@ -283,4 +286,8 @@ $(document).ready(function() {
 
   window.colorGroup = d3.scale.ordinal()
      .range(['rgb(60, 150, 150)', '#0FD495', '#2EFC79', '#2EFCED']);
+    
+    $('#container').hover(function() {
+        $('#thechart').removeClass('active');
+    })
 });

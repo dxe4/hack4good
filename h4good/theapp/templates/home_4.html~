@@ -4,6 +4,7 @@
         {% load staticfiles %}
         <meta charset="utf-8">
         <style>
+            
             body {
                 margin: 0px;
                 padding: 0px;
@@ -29,6 +30,88 @@
                margin: 1px;
                color: white;
              }
+
+
+#container {
+    width: 100%;
+}
+
+#container div {
+    display: block !important;
+    margin: 2rem auto;
+    cursor: pointer;
+}
+
+#thechart {
+    position: absolute;
+    left: 0;
+    top: -100px;
+    transition: top 0.6s ease;
+    width: 100% !important;;
+    margin: 0 auto;
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+#thechart:hover {
+    top: 0;
+}
+
+#thechart.active {
+    top: 0;
+}
+
+#thechart svg {
+    margin: 2rem auto;
+    display: block;
+}
+
+#container {
+    position: absolute;
+    left: 0;
+    top: 60px;
+}
+
+h4 {
+    position: relative;
+    z-index: 4;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+h4:first-of-type {
+    margin-top: 4rem;
+}
+
+.panel {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    width: 200px;
+    height: 80%;
+    left: -170px;
+    top: 10%;
+    z-index: 5;
+    text-align: center;
+    transition: left 0.6s ease;
+}
+
+.panel:hover {
+    left: 10px;
+}
+
+button {
+    width: 100% !important;
+    height: 45px;
+    margin: 2rem 0;
+}
+
+.data-dropdown {
+    width: 100%;
+    box-shadow: none;
+}
+
+
+        
         </style>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="{% static 'world_map.js' %}"></script>
@@ -37,7 +120,7 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -128,6 +211,8 @@
                 </ul>
             </div>
             <button id="search">Search</button>
+
+	    <p>You can compare up to 4 countries by holding Shift while selecting them</p>
         </div>
         <!-- end of oldschool... -->
         <div id="container"></div>
