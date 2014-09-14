@@ -29,6 +29,8 @@ def _transorm(a, b, ab_diff, x_diff, x_min, value):
 
 def to_color_map(_dict, a=0, b=100):
     values = _dict.values()
+    if not values:
+        return {}
 
     ab_diff = b - a
     x_min = min(values)
@@ -55,7 +57,7 @@ def read_file(fname):
                 item['country_code'] = \
                     convert_country_code(country_code).upper()
             except KeyError:
-                print("not found {}".format(country_code))
+                pass  # Country not found
 
             items.append(item)
 
@@ -65,7 +67,6 @@ def read_file(fname):
 def get_data(fname, year):
     # settings.CO2_FILE
     fpath = settings.DATA_FILES[fname]
-    print(fpath)
     result = read_file(fname=fpath)
 
     data = {i['country_code']: float(i[year])
@@ -77,3 +78,13 @@ def get_data(fname, year):
     # worldmap_chart.title = 'C02'
     # worldmap_chart.add('Year {}'.format(year), data)
     # worldmap_chart.render_to_file("{}.svg".format(year))
+
+
+def get_data_by_country(country, year):
+    result = {}
+    for k, v in settings.DATA_FILES.items():
+        data = read_file(fname=v)
+        data = {i['country_code']: float(i[year])
+                for i in data if i.get(year) and i['country_code'] == country}
+        result[k] = data
+    return result

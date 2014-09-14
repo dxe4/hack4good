@@ -18,6 +18,50 @@ var bad_dict = {
 }
 
 
+function send_request(cb){
+    $.get( "/get-data/"+ fname +"/"+ year, function( data ) {
+        draw(data);
+        if(cb){
+          cb();
+        }
+      
+    });
+}
+
+function send_request_by_contry(country, cb) {
+    $.get( "/get-data/"+ country +"/"+ year, function( data ) {
+        // draw(data);
+        console.log(data);
+        if(cb){
+          cb();
+        }
+      
+    });
+}
+
+
+function registerListeners(){
+  // WHHAAAAAT £"!$£"$£"$"£
+  $(".data-dropdown li").click(function() {
+      var type = $(this).data("type");
+      var val = $(this).data(type);
+
+      if(type === "year"){
+          year = val;
+      }  else if(type === "fname") {
+          fname = val;         
+      }
+  });
+  $("#search").click(function() {
+      send_request(function(){
+         $("#title").text(bad_dict[fname]);
+         $("#year").text(year);
+      });    
+  });
+}
+
+
+
 function draw(jsonData){
 
     var path_dict = {};
@@ -66,42 +110,15 @@ function draw(jsonData){
           this.moveTo(mapLayer);
           topLayer.draw();
         });
+
+        path.on('click', function() {
+            send_request_by_contry(this.country_key);
+        });
         
         mapLayer.add(path);
     }
     stage.add(mapLayer);
     stage.add(topLayer);
-}
-
-function send_request(cb){
-    $.get( "/get-data/"+ fname +"/"+ year, function( data ) {
-      draw(data);
-      if(cb){
-        cb();
-      }
-      
-    });
-}
-
-
-function registerListeners(){
-  // WHHAAAAAT £"!$£"$£"$"£
-  $(".data-dropdown li").click(function() {
-      var type = $(this).data("type");
-      var val = $(this).data(type);
-
-      if(type === "year"){
-          year = val;
-      }  else if(type === "fname") {
-          fname = val;         
-      }
-  });
-  $("#search").click(function() {
-      send_request(function(){
-         $("#title").text(bad_dict[fname]);
-         $("#year").text(year);
-      });    
-  });
 }
 
 
